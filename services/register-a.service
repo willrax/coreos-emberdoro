@@ -1,0 +1,13 @@
+[Unit]
+Description=Register For A
+BindsTo=emberdoro-a.service
+After=emberdoro-a.service
+
+[Service]
+EnvironmentFile=/etc/environment
+RemainAfterExit=yes
+ExecStart=
+ExecStop=
+
+[X-Fleet]
+X-ConditionMachineOf=emberdoro-a.service

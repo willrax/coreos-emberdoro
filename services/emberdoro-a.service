@@ -1,0 +1,15 @@
+[Unit]
+Description=EmberdoroA
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill emberA
+ExecStartPre=-/usr/bin/docker rm emberA
+ExecStartPre=/usr/bin/docker pull willrax/docker-emberdoro
+ExecStart=/usr/bin/docker run --name emberA -p 8086:80 willrax/docker-emberdoro
+ExecStop=/usr/bin/docker stop emberA
+
+[X-Fleet]
+X-Conflicts=emberdoro-*.service

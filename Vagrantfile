@@ -6,7 +6,7 @@ require 'fileutils'
 Vagrant.require_version ">= 1.6.0"
 
 CLOUD_CONFIG_PATH = File.join(File.dirname(__FILE__), "user-data")
-SERVICES_PATH = File.join(File.dirname(__FILE__), "services/")
+ROOT_PATH = File.join(File.dirname(__FILE__), "/services")
 CONFIG = File.join(File.dirname(__FILE__), "config.rb")
 
 # Defaults for config options defined in CONFIG
@@ -131,10 +131,13 @@ Vagrant.configure("2") do |config|
         config.vm.synced_folder ENV['HOME'], ENV['HOME'], id: "home", :nfs => true, :mount_options => ['nolock,vers=3,udp']
       end
 
+      config.vm.provision :file, source: "#{ROOT_PATH}/super-a.service", destination: "super-a.service"
+      config.vm.provision :file, source: "#{ROOT_PATH}/register-a.service", destination: "register-a.service"
+      config.vm.provision :file, source: "#{ROOT_PATH}/vulcan.service", destination: "vulcan.service"
+
       if File.exist?(CLOUD_CONFIG_PATH)
         config.vm.provision :file, source: "#{CLOUD_CONFIG_PATH}", destination: "/tmp/vagrantfile-user-data"
         config.vm.provision :shell, inline: "mv /tmp/vagrantfile-user-data /var/lib/coreos-vagrant/", privileged: true
-        config.vm.provision :file, source: "#{SERVICES_PATH}/super.service", destination: "~/super.service"
       end
     end
   end
