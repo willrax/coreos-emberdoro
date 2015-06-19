@@ -1,0 +1,15 @@
+[Unit]
+Description=EmberdoroB
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill emberB
+ExecStartPre=-/usr/bin/docker rm emberB
+ExecStartPre=/usr/bin/docker pull willrax/docker-emberdoro
+ExecStart=/usr/bin/docker run --name emberB -p 80:80 willrax/docker-emberdoro
+ExecStop=/usr/bin/docker stop emberB
+
+[X-Fleet]
+X-Conflicts=emberdoro-*.service

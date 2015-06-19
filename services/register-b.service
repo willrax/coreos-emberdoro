@@ -1,7 +1,7 @@
 [Unit]
-Description=register a
-BindsTo=emberdoro-a.service
-After=emberdoro-a.service
+Description=register b
+BindsTo=emberdoro-b.service
+After=emberdoro-b.service
 
 [Service]
 TimeoutStartSec=0

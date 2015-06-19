@@ -132,6 +132,7 @@ Vagrant.configure("2") do |config|
       end
 
       config.vm.provision :file, source: "#{ROOT_PATH}/emberdoro-a.service", destination: "emberdoro-a.service"
+      config.vm.provision :file, source: "#{ROOT_PATH}/emberdoro-a.service", destination: "emberdoro-b.service"
       config.vm.provision :file, source: "#{ROOT_PATH}/load-balance.service", destination: "load-balance.service"
 
       if File.exist?(CLOUD_CONFIG_PATH)
