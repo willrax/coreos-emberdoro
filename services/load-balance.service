@@ -1,0 +1,12 @@
+[Unit]
+Description=load balancer
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill load-balance
+ExecStartPre=-/usr/bin/docker rm load-balance
+ExecStartPre=/usr/bin/docker pull willrax/docker-nginxlb
+ExecStart=/usr/bin/docker run --name load-balance -p 80:80 willrax/docker-nginxlb
+ExecStop=/usr/bin/docker stop load-balance
