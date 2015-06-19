@@ -131,9 +131,8 @@ Vagrant.configure("2") do |config|
         config.vm.synced_folder ENV['HOME'], ENV['HOME'], id: "home", :nfs => true, :mount_options => ['nolock,vers=3,udp']
       end
 
-      config.vm.provision :file, source: "#{ROOT_PATH}/super-a.service", destination: "super-a.service"
-      config.vm.provision :file, source: "#{ROOT_PATH}/register-a.service", destination: "register-a.service"
-      config.vm.provision :file, source: "#{ROOT_PATH}/vulcan.service", destination: "vulcan.service"
+      config.vm.provision :file, source: "#{ROOT_PATH}/emberdoro-a.service", destination: "emberdoro-a.service"
+      config.vm.provision :file, source: "#{ROOT_PATH}/load-balance.service", destination: "load-balance.service"
 
       if File.exist?(CLOUD_CONFIG_PATH)
         config.vm.provision :file, source: "#{CLOUD_CONFIG_PATH}", destination: "/tmp/vagrantfile-user-data"
